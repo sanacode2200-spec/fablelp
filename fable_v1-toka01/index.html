@@ -118,7 +118,7 @@ nav{
   nav{padding:1rem 1.25rem}
 }
 @media(max-width:640px){
-  .hero-bouquet{opacity:.78}
+  .hero-bouquet{opacity:.6}
 }
 #cursor{
   position:fixed;top:0;left:0;z-index:150;pointer-events:none;
@@ -151,8 +151,7 @@ section{position:relative}
 .hero-stage{position:relative;flex:1;display:flex;align-items:center;justify-content:center;min-height:78svh}
 .hero-bouquet{
   position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);
-  width:min(64vw,500px);opacity:.97;
-  filter:drop-shadow(0 26px 32px rgba(62,54,45,.26)) drop-shadow(0 6px 10px rgba(62,54,45,.16));
+  width:min(58vw,430px);opacity:.9;
 }
 .hero-type{
   position:relative;z-index:2;text-align:center;padding:0 4vw;
@@ -214,7 +213,7 @@ section{position:relative}
 }
 .an-head{position:absolute;top:9svh;left:0;right:0;text-align:center;z-index:5;padding:0 5vw}
 .an-head h2{font-size:clamp(1.5rem,3.6vw,2.4rem);font-weight:500;letter-spacing:.1em}
-.an-bouquet{width:min(66vw,440px);position:relative;z-index:2;overflow:visible;margin-top:6svh;filter:drop-shadow(0 20px 26px rgba(62,54,45,.2))}
+.an-bouquet{width:min(66vw,440px);position:relative;z-index:2;overflow:visible;margin-top:6svh}
 .an-label{
   position:absolute;z-index:6;max-width:280px;opacity:0;visibility:hidden;
 }
@@ -264,7 +263,7 @@ section{position:relative}
 }
 .pv-head{position:absolute;top:9svh;left:0;right:0;text-align:center;z-index:5;padding:0 5vw}
 .pv-head h2{font-size:clamp(1.5rem,3.6vw,2.4rem);font-weight:500;letter-spacing:.1em}
-.pv-flower{width:min(64vw,440px);margin-top:2svh;filter:drop-shadow(0 22px 28px rgba(62,54,45,.22))}
+.pv-flower{width:min(58vw,380px);margin-top:2svh}
 .pv-meter{
   position:absolute;left:6vw;bottom:8svh;z-index:5;display:flex;align-items:flex-end;gap:1.1rem;
 }
@@ -1181,10 +1180,10 @@ gsap.to('#progressBar',{
 /* hero intro (plays after loader) */
 gsap.set('[data-hero-row]',{yPercent:110});
 gsap.set('[data-hero-fade]',{opacity:0,y:20});
-gsap.set('.hero-bouquet',{opacity:0,scale:.88,transformOrigin:'50% 80%'});
+gsap.set('.hero-bouquet',{opacity:0,scale:.94,transformOrigin:'50% 80%'});
 function heroIn(){
   var tl = gsap.timeline({defaults:{ease:'power3.out'}});
-  tl.to('.hero-bouquet',{opacity:window.innerWidth<=640?.78:.97,scale:1,duration:1.6,ease:'power2.out'},0)
+  tl.to('.hero-bouquet',{opacity:window.innerWidth<=640?.6:.9,scale:1,duration:1.6,ease:'power2.out'},0)
     .to('[data-hero-row]',{yPercent:0,duration:1.15,stagger:.14},.15)
     .to('[data-hero-fade]',{opacity:1,y:0,duration:.9,stagger:.12},.75);
 }
@@ -1198,7 +1197,7 @@ gsap.to('.hero-bouquet',{
   scrollTrigger:{trigger:'#intro',start:'top top',end:'bottom top',scrub:.4}
 });
 /* gentle bouquet sway */
-gsap.to('.hero-bouquet',{rotate:1.8,transformOrigin:'50% 88%',duration:5.5,yoyo:true,repeat:-1,ease:'sine.inOut'});
+gsap.to('.hero-bouquet',{rotate:1.4,transformOrigin:'50% 88%',duration:5.5,yoyo:true,repeat:-1,ease:'sine.inOut'});
 
 /* ---------- 01 ANATOMY ---------- */
 var mm = gsap.matchMedia();
@@ -1301,19 +1300,6 @@ document.querySelectorAll('[data-reveal]').forEach(function(el){
   gsap.to(el,{
     opacity:1,y:0,duration:1.1,ease:'power3.out',
     scrollTrigger:{trigger:el,start:'top 86%',once:true}
-  });
-});
-
-/* ---------- background beat: brief hold each time the section bg flips ---------- */
-/* anatomy(#anatomy) and preservation(#preservation) already pin themselves for
-   their own internal choreography, which already reads as a pause — skipped here. */
-['#interlude','#breeze','#spec','#features','#reviews','#preorder'].forEach(function(sel){
-  var el = document.querySelector(sel);
-  if(!el) return;
-  ScrollTrigger.create({
-    trigger: el, start:'top top',
-    end: function(){ return '+='+Math.round(window.innerHeight*.28); },
-    pin:true, anticipatePin:1, invalidateOnRefresh:true
   });
 });
 
