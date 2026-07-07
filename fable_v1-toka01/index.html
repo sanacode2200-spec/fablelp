@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TŌKA 01 — TIME, PRESERVED. | 永花</title>
+<meta name="description" content="TŌKA 01 — シグネチャー・ドライブーケ。14日間の自然乾燥で、花の一番美しい瞬間を永遠にする。時間を、閉じ込める。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TŌKA 01 — TIME, PRESERVED.
+   palette: herbarium / old greenhouse / faded paper
+============================================================ */
+:root{
+  --paper:      #EFE8DB;
+  --paper-deep: #E5DBC9;
+  --paper-dim:  #DDD2BE;
+  --ink:        #3E362D;
+  --ink-soft:   #7C6F5F;
+  --ink-faint:  #A79A87;
+  --line:       #C9BCA5;
+  --brass:      #A88B5E;
+  --brass-deep: #8A7048;
+
+  /* flower vars (dried defaults — sections may override) */
+  --rose-out:  #C0908C;
+  --rose-mid:  #B37F7C;
+  --rose-in:   #9E6B6A;
+  --rose-core: #855757;
+  --gyps:      #F1EBE0;
+  --gyps-core: #D9CDB9;
+  --euca:      #96A395;
+  --euca-deep: #7E8D80;
+  --statice:   #9A87A5;
+  --statice-deep:#7F6B8C;
+  --stem:      #8E8A6E;
+  --kraft:     #D8C7A8;
+  --kraft-deep:#C4B08C;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto}
+html,body{overflow-x:clip}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Shippori Mincho','Hiragino Mincho ProN',serif;
+  font-size:16px;
+  line-height:1.9;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--rose-out);color:var(--paper)}
+
+/* paper grain */
+body::after{
+  content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+svg{display:block}
+
+.en{font-family:'Cormorant Garamond',serif}
+.disp{font-family:'Italiana',serif;font-weight:400}
+.label{
+  font-family:'Zen Kaku Gothic New',sans-serif;font-weight:400;
+  font-size:.625rem;letter-spacing:.32em;text-transform:uppercase;color:var(--ink-soft);
+}
+
+/* ============ LOADER ============ */
+#loader{
+  position:fixed;inset:0;z-index:200;background:var(--paper);
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .9s ease,visibility .9s ease;
+}
+#loader.done{opacity:0;visibility:hidden}
+.ld-flower{width:130px;height:130px}
+.ld-flower path{will-change:transform}
+.ld-count{
+  position:absolute;left:6vw;bottom:6vh;
+  font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(3rem,8vw,5.5rem);line-height:1;color:var(--ink);
+  font-variant-numeric:tabular-nums;
+}
+.ld-count small{font-size:.35em;color:var(--ink-faint);letter-spacing:.1em}
+.ld-brand{position:absolute;top:6vh;left:6vw}
+.ld-brand .label{color:var(--ink-soft)}
+
+/* ============ NAV / PROGRESS / CURSOR ============ */
+.progress{
+  position:fixed;top:0;left:0;right:0;height:2px;z-index:120;
+  background:var(--brass);transform-origin:0 50%;transform:scaleX(0);
+}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:110;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 2rem;
+  background:linear-gradient(to bottom,rgba(239,232,219,.7),rgba(239,232,219,0));
+}
+.nav-logo{display:flex;align-items:baseline;gap:.6rem}
+.nav-logo .disp{font-size:1.35rem;letter-spacing:.14em}
+.nav-logo .jp{font-size:.7rem;color:var(--ink-soft);letter-spacing:.4em}
+.nav-idx{display:flex;gap:1.1rem;align-items:center}
+.nav-idx a{
+  font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.12em;
+  color:var(--ink-faint);position:relative;padding:.2rem .1rem;transition:color .3s;
+}
+.nav-idx a.on{color:var(--ink)}
+.nav-idx a.on::after{
+  content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:var(--brass);
+}
+.nav-now{font-family:'Zen Kaku Gothic New',sans-serif;font-size:.6rem;letter-spacing:.3em;color:var(--ink-soft);display:none}
+@media(max-width:860px){
+  .nav-idx{display:none}
+  .nav-now{display:block}
+  nav{padding:1rem 1.25rem}
+}
+@media(max-width:640px){
+  .hero-bouquet{opacity:.6}
+}
+#cursor{
+  position:fixed;top:0;left:0;z-index:150;pointer-events:none;
+  width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;
+  border:1px solid var(--ink-soft);opacity:0;
+  transition:width .25s,height .25s,margin .25s,opacity .4s,border-color .3s;
+}
+#cursor.grow{width:64px;height:64px;margin:-32px 0 0 -32px;border-color:var(--brass)}
+#cursor .dot{position:absolute;top:50%;left:50%;width:4px;height:4px;margin:-2px 0 0 -2px;border-radius:50%;background:var(--brass)}
+@media(pointer:coarse){#cursor{display:none}}
+
+/* ============ SECTION COMMONS ============ */
+section{position:relative}
+.shead{padding:0 6vw;max-width:1200px;margin:0 auto}
+.shead .eyebrow{
+  display:flex;align-items:center;gap:1rem;margin-bottom:1.4rem;
+}
+.eyebrow .no{font-family:'Cormorant Garamond',serif;font-size:.95rem;letter-spacing:.2em;color:var(--brass)}
+.eyebrow .rule{width:64px;height:1px;background:var(--line)}
+.shead h2{
+  font-size:clamp(1.7rem,4.6vw,3.1rem);font-weight:500;letter-spacing:.06em;line-height:1.5;
+}
+.shead .sub-en{
+  font-family:'Italiana',serif;font-size:clamp(.9rem,1.6vw,1.15rem);
+  letter-spacing:.34em;color:var(--ink-soft);margin-top:.7rem;text-transform:uppercase;
+}
+
+/* ============ 00 INTRO ============ */
+#intro{min-height:100svh;display:flex;flex-direction:column;justify-content:center;overflow:clip}
+.hero-stage{position:relative;flex:1;display:flex;align-items:center;justify-content:center;min-height:78svh}
+.hero-bouquet{
+  position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);
+  width:min(58vw,430px);opacity:.9;
+}
+.hero-type{
+  position:relative;z-index:2;text-align:center;padding:0 4vw;
+}
+.hero-type h1{
+  font-family:'Italiana',serif;font-weight:400;
+  font-size:clamp(3.2rem,11.5vw,10.5rem);
+  line-height:.98;letter-spacing:.04em;color:var(--ink);
+}
+.hero-type h1 .row{display:block;overflow:hidden}
+.hero-type h1 .row span{display:inline-block}
+.hero-jp{
+  margin-top:1.6rem;font-size:clamp(.85rem,2vw,1.05rem);letter-spacing:.5em;text-indent:.5em;
+}
+.hero-meta{
+  margin-top:1rem;display:flex;justify-content:center;gap:1.4rem;flex-wrap:wrap;
+}
+.hero-scroll{
+  position:absolute;bottom:6vh;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.8rem;z-index:3;
+}
+.hero-scroll .stem{width:1px;height:56px;background:var(--ink-soft);transform-origin:top;animation:scrollstem 2.2s ease-in-out infinite}
+@keyframes scrollstem{0%{transform:scaleY(0)}55%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+.float-petal{position:absolute;z-index:1;opacity:.55;pointer-events:none}
+.float-petal svg{width:100%;height:100%}
+.fp1{width:26px;top:16%;left:14%;animation:drift1 13s ease-in-out infinite alternate}
+.fp2{width:18px;top:24%;right:12%;animation:drift2 17s ease-in-out infinite alternate}
+.fp3{width:32px;bottom:22%;left:9%;animation:drift2 15s ease-in-out infinite alternate-reverse}
+.fp4{width:20px;bottom:30%;right:16%;animation:drift1 19s ease-in-out infinite alternate}
+.fp5{width:14px;top:44%;left:26%;animation:drift2 21s ease-in-out infinite alternate}
+.fp6{width:22px;top:38%;right:27%;animation:drift1 16s ease-in-out infinite alternate-reverse}
+@keyframes drift1{
+  0%{transform:translate(0,0) rotate(0deg)}
+  100%{transform:translate(26px,44px) rotate(140deg)}
+}
+@keyframes drift2{
+  0%{transform:translate(0,0) rotate(0deg)}
+  100%{transform:translate(-34px,30px) rotate(-120deg)}
+}
+
+/* marquee */
+.marquee{
+  overflow:clip;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:.9rem 0;background:var(--paper);
+}
+.marquee-track{display:flex;width:max-content;animation:marquee 28s linear infinite}
+.marquee-track span{
+  font-family:'Italiana',serif;font-size:.95rem;letter-spacing:.34em;
+  color:var(--ink-soft);white-space:nowrap;padding-right:.5rem;
+}
+.marquee-track .sep{color:var(--brass)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ============ 01 ANATOMY ============ */
+#anatomy{background:var(--paper-deep)}
+.an-stage{
+  height:100svh;overflow:clip;position:relative;
+  display:flex;align-items:center;justify-content:center;
+}
+.an-head{position:absolute;top:9svh;left:0;right:0;text-align:center;z-index:5;padding:0 5vw}
+.an-head h2{font-size:clamp(1.5rem,3.6vw,2.4rem);font-weight:500;letter-spacing:.1em}
+.an-bouquet{width:min(66vw,440px);position:relative;z-index:2;overflow:visible;margin-top:6svh}
+.an-label{
+  position:absolute;z-index:6;max-width:280px;opacity:0;visibility:hidden;
+}
+.an-label .lname{font-family:'Italiana',serif;font-size:clamp(1.05rem,2vw,1.5rem);letter-spacing:.16em}
+.an-label .ljp{font-size:.72rem;letter-spacing:.3em;color:var(--brass);margin:.15rem 0 .55rem}
+.an-label p{font-size:.78rem;line-height:2;color:var(--ink-soft)}
+.an-label .tick{width:44px;height:1px;background:var(--brass);margin-bottom:.7rem;transform-origin:left}
+.al-rose   {top:14%; right:6%}
+.al-gyps   {top:17%; left:6%}
+.al-euca   {top:56%; right:6%}
+.al-statice{top:60%; left:6%}
+@media(max-width:767px){
+  .an-label{max-width:none;left:7vw!important;right:7vw!important;top:auto!important;bottom:7svh!important}
+  .an-label p{font-size:.72rem;line-height:1.9}
+  .an-bouquet{width:min(72vw,300px);margin-top:-9svh}
+  .an-head{top:12svh}
+}
+
+/* ============ INTERLUDE ============ */
+#interlude{padding:32svh 8vw;background:var(--paper);text-align:center}
+#interlude .line{
+  font-size:clamp(1.15rem,3.2vw,2rem);font-weight:500;letter-spacing:.14em;
+  line-height:2.2;opacity:.07;
+}
+#interlude .line + .line{margin-top:2.8rem}
+#interlude .line em{font-style:normal;color:var(--brass-deep)}
+
+/* ============ 02 BREEZE ============ */
+#breeze{height:110svh;background:var(--paper-deep);overflow:clip;position:relative}
+#breeze .shead{position:absolute;top:14svh;left:0;right:0;z-index:3;text-align:center;pointer-events:none}
+#breeze .shead .eyebrow{justify-content:center}
+#breeze canvas{position:absolute;inset:0;width:100%;height:100%}
+.breeze-hint{
+  position:absolute;bottom:9svh;left:0;right:0;text-align:center;z-index:3;pointer-events:none;
+}
+
+/* ============ 03 PRESERVATION ============ */
+#preservation{
+  --pv-p-out:#E45B7F; --pv-p-mid:#D8436C; --pv-p-in:#C42F57; --pv-p-core:#A81F44;
+  --pv-leaf:#4E9C5C; --pv-leaf-deep:#3D8049;
+  --pv-bg:#F3EEE2; --pv-ink:#3E362D;
+  background:var(--pv-bg);color:var(--pv-ink);
+}
+.pv-stage{
+  height:100svh;overflow:clip;position:relative;
+  display:flex;align-items:center;justify-content:center;
+}
+.pv-head{position:absolute;top:9svh;left:0;right:0;text-align:center;z-index:5;padding:0 5vw}
+.pv-head h2{font-size:clamp(1.5rem,3.6vw,2.4rem);font-weight:500;letter-spacing:.1em}
+.pv-flower{width:min(58vw,380px);margin-top:2svh}
+.pv-meter{
+  position:absolute;left:6vw;bottom:8svh;z-index:5;display:flex;align-items:flex-end;gap:1.1rem;
+}
+.pv-meter .bar{
+  width:2px;height:110px;background:var(--line);position:relative;
+}
+.pv-meter .bar i{
+  position:absolute;left:0;bottom:0;width:100%;height:100%;
+  background:var(--brass);transform-origin:bottom;display:block;
+}
+.pv-m-num{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1;font-variant-numeric:tabular-nums}
+.pv-m-cap{margin-top:.4rem}
+.pv-day{
+  position:absolute;right:6vw;bottom:8svh;z-index:5;text-align:right;
+  font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(1.4rem,3vw,2rem);font-variant-numeric:tabular-nums;
+}
+.pv-state{
+  position:absolute;right:6vw;top:24svh;z-index:5;text-align:right;
+}
+.pv-state .st{display:block;font-family:'Italiana',serif;font-size:clamp(1rem,2.2vw,1.5rem);letter-spacing:.3em}
+.pv-state .st.fresh{color:#C42F57}
+.pv-state .st.dried{color:#9E6B6A;margin-top:.3rem;opacity:.25}
+@media(max-width:767px){
+  .pv-state{top:auto;bottom:24svh}
+  .pv-flower{width:min(64vw,300px);margin-top:-6svh}
+  .pv-meter .bar{height:70px}
+}
+
+/* ============ 04 SPEC ============ */
+#spec{padding:22svh 0;background:var(--paper)}
+.spec-grid{
+  max-width:1200px;margin:8vh auto 0;padding:0 6vw;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:2.5rem 2rem;
+}
+.spec-cell{border-top:1px solid var(--line);padding-top:1.6rem}
+.spec-num{
+  font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(3.4rem,7vw,5.6rem);line-height:1;color:var(--ink);
+  font-variant-numeric:tabular-nums;
+}
+.spec-num .suffix{font-size:.5em;color:var(--brass)}
+.spec-unit{font-family:'Italiana',serif;letter-spacing:.3em;font-size:.85rem;color:var(--ink-soft);margin-top:.5rem;text-transform:uppercase}
+.spec-jp{font-size:.72rem;color:var(--ink-faint);letter-spacing:.2em;margin-top:.3rem}
+@media(max-width:767px){.spec-grid{grid-template-columns:repeat(2,1fr);gap:2.4rem 1.4rem}}
+
+/* ============ 05 FEATURES ============ */
+#features{padding:18svh 0 22svh;background:var(--paper-deep)}
+.feat-grid{
+  max-width:1200px;margin:9vh auto 0;padding:0 6vw;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);
+}
+.feat-card{background:var(--paper-deep);padding:2.4rem 1.9rem;transition:background .5s}
+.feat-card:hover{background:var(--paper)}
+.feat-card .fno{font-family:'Cormorant Garamond',serif;font-size:.85rem;letter-spacing:.24em;color:var(--brass)}
+.feat-card h3{font-family:'Italiana',serif;font-weight:400;font-size:1.45rem;letter-spacing:.12em;margin:.9rem 0 .2rem}
+.feat-card .fjp{font-size:.8rem;letter-spacing:.24em;color:var(--ink-soft)}
+.feat-card p{font-size:.78rem;line-height:2.1;color:var(--ink-soft);margin-top:1rem}
+.feat-card .ficon{width:30px;height:30px;margin-top:1.4rem;opacity:.7}
+.feat-card .ficon *{stroke:var(--brass-deep);fill:none;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:960px){.feat-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.feat-grid{grid-template-columns:1fr}}
+
+/* ============ 06 REVIEWS ============ */
+#reviews{padding:20svh 0;background:var(--paper)}
+.rev-grid{
+  max-width:1150px;margin:9vh auto 0;padding:0 6vw;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2.2rem;
+}
+.rev-card{border-top:1px solid var(--ink);padding-top:1.7rem;display:flex;flex-direction:column}
+.rev-stars{color:var(--brass);letter-spacing:.24em;font-size:.8rem}
+.rev-stars .score{font-family:'Cormorant Garamond',serif;color:var(--ink-soft);margin-left:.6rem;letter-spacing:.05em}
+.rev-quote{
+  font-size:.86rem;line-height:2.15;margin:1.3rem 0 1.6rem;flex:1;
+}
+.rev-media{font-family:'Italiana',serif;letter-spacing:.26em;font-size:.85rem}
+.rev-note{max-width:1150px;margin:6vh auto 0;padding:0 6vw;font-size:.68rem;color:var(--ink-faint);letter-spacing:.1em}
+@media(max-width:860px){.rev-grid{grid-template-columns:1fr;gap:3rem}}
+
+/* ============ 07 PRE-ORDER ============ */
+#preorder{background:var(--ink);color:var(--paper)}
+#preorder .label{color:var(--ink-faint)}
+.po-inner{padding:22svh 6vw 16svh;max-width:1100px;margin:0 auto;text-align:center}
+.po-inner .eyebrow{justify-content:center;display:flex;align-items:center;gap:1rem;margin-bottom:2.4rem}
+.po-inner .eyebrow .rule{background:var(--brass-deep)}
+.po-title{
+  font-family:'Italiana',serif;font-weight:400;
+  font-size:clamp(2.4rem,7.5vw,5.6rem);line-height:1.12;letter-spacing:.05em;
+}
+.po-jp{margin-top:1.6rem;letter-spacing:.4em;font-size:clamp(.85rem,1.8vw,1rem);color:var(--paper-dim)}
+.po-price{
+  margin-top:6vh;font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(2.6rem,6vw,4.2rem);line-height:1;
+}
+.po-price small{font-size:.32em;letter-spacing:.2em;color:var(--ink-faint)}
+.po-when{margin-top:1rem;font-family:'Italiana',serif;letter-spacing:.4em;color:var(--brass);font-size:.95rem}
+.po-btn{
+  margin-top:7vh;display:inline-block;position:relative;
+  border:1px solid var(--brass);padding:1.25rem 4rem;letter-spacing:.34em;font-size:.8rem;
+  color:var(--paper);transition:background .5s,color .5s;overflow:hidden;
+}
+.po-btn:hover{background:var(--brass);color:var(--ink)}
+.po-note{margin-top:2.2rem;font-size:.66rem;color:var(--ink-faint);letter-spacing:.14em}
+#preorder .marquee{border-color:#564c3f;background:transparent;padding:1.1rem 0}
+#preorder .marquee-track span{color:#7C6F5F}
+footer{
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;
+  padding:2.2rem 6vw 2.6rem;font-size:.66rem;color:var(--ink-faint);letter-spacing:.14em;
+}
+footer .f-logo{font-family:'Italiana',serif;font-size:1.1rem;letter-spacing:.2em;color:var(--paper-dim)}
+
+/* ============ reveal helper ============ */
+[data-reveal]{opacity:0;transform:translateY(34px)}
+
+/* ============ REDUCED MOTION ============ */
+@media(prefers-reduced-motion:reduce){
+  .marquee-track{animation:none}
+  .float-petal{animation:none}
+  .hero-scroll .stem{animation:none;transform:none}
+}
+html.reduced [data-reveal]{opacity:1;transform:none}
+html.reduced #loader{display:none}
+html.reduced #cursor{display:none}
+html.reduced .an-stage{height:auto;min-height:0;flex-direction:column;padding:10svh 6vw;gap:2rem}
+html.reduced .an-head{position:static;padding:0}
+html.reduced .an-label{position:static;opacity:1;visibility:visible;max-width:520px;margin:0 auto}
+html.reduced .an-bouquet{margin:2rem auto}
+html.reduced #interlude .line{opacity:1}
+html.reduced .pv-stage{height:auto;padding:12svh 6vw 16svh}
+html.reduced .pv-head{position:static;margin-bottom:3rem;padding:0}
+html.reduced #preservation{
+  --pv-p-out:#C0908C;--pv-p-mid:#B37F7C;--pv-p-in:#9E6B6A;--pv-p-core:#855757;
+  --pv-leaf:#93987F;--pv-leaf-deep:#7E8D80;--pv-bg:#E9DFCC;
+}
+html.reduced .pv-meter,html.reduced .pv-day,html.reduced .pv-state{position:static;margin-top:2rem}
+html.reduced .pv-state .st.fresh{opacity:.25;color:#9E6B6A}
+html.reduced .pv-state .st.dried{opacity:1}
+</style>
+</head>
+<body>
+
+<!-- ==================== SVG DEFS ==================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- one rose petal, base at origin, pointing up -->
+    <path id="petalR" d="M0 2 C -17 -5 -21 -31 0 -47 C 21 -31 17 -5 0 2 Z"/>
+    <!-- gypsophila blossom -->
+    <g id="gypsBloom" stroke="#B4A78D" stroke-width=".4" stroke-opacity=".7">
+      <circle cx="0" cy="-2.6" r="1.7" style="fill:var(--gyps)"/>
+      <circle cx="2.5" cy="-0.8" r="1.7" style="fill:var(--gyps)"/>
+      <circle cx="1.6" cy="2.2" r="1.7" style="fill:var(--gyps)"/>
+      <circle cx="-1.6" cy="2.2" r="1.7" style="fill:var(--gyps)"/>
+      <circle cx="-2.5" cy="-0.8" r="1.7" style="fill:var(--gyps)"/>
+      <circle cx="0" cy="0" r="1.1" style="fill:var(--gyps-core)" stroke="none"/>
+    </g>
+    <!-- statice floret -->
+    <g id="statFloret">
+      <circle cx="0" cy="-2.2" r="1.9" style="fill:var(--statice)"/>
+      <circle cx="2.2" cy="0.6" r="1.9" style="fill:var(--statice)"/>
+      <circle cx="-2.2" cy="0.6" r="1.9" style="fill:var(--statice)"/>
+      <circle cx="0" cy="2.4" r="1.9" style="fill:var(--statice-deep)"/>
+    </g>
+
+    <!-- GARDEN ROSE -->
+    <symbol id="f-rose" viewBox="-60 -60 120 120" overflow="visible">
+      <g style="fill:var(--rose-out)" opacity=".96">
+        <use href="#petalR" transform="rotate(0) scale(1.02)"/>
+        <use href="#petalR" transform="rotate(46) scale(.97)"/>
+        <use href="#petalR" transform="rotate(93) scale(1.04)"/>
+        <use href="#petalR" transform="rotate(139) scale(.99)"/>
+        <use href="#petalR" transform="rotate(184) scale(1.03)"/>
+        <use href="#petalR" transform="rotate(228) scale(.96)"/>
+        <use href="#petalR" transform="rotate(272) scale(1.01)"/>
+        <use href="#petalR" transform="rotate(317) scale(.98)"/>
+      </g>
+      <g style="fill:var(--rose-mid)" opacity=".97">
+        <use href="#petalR" transform="rotate(24) scale(.74)"/>
+        <use href="#petalR" transform="rotate(85) scale(.7)"/>
+        <use href="#petalR" transform="rotate(146) scale(.75)"/>
+        <use href="#petalR" transform="rotate(204) scale(.71)"/>
+        <use href="#petalR" transform="rotate(262) scale(.74)"/>
+        <use href="#petalR" transform="rotate(322) scale(.7)"/>
+      </g>
+      <g style="fill:var(--rose-in)">
+        <use href="#petalR" transform="rotate(10) scale(.47)"/>
+        <use href="#petalR" transform="rotate(82) scale(.44)"/>
+        <use href="#petalR" transform="rotate(154) scale(.47)"/>
+        <use href="#petalR" transform="rotate(226) scale(.45)"/>
+        <use href="#petalR" transform="rotate(298) scale(.46)"/>
+      </g>
+      <g style="fill:var(--rose-core)">
+        <use href="#petalR" transform="rotate(55) scale(.24)"/>
+        <use href="#petalR" transform="rotate(175) scale(.25)"/>
+        <use href="#petalR" transform="rotate(295) scale(.23)"/>
+        <circle r="4.5"/>
+      </g>
+    </symbol>
+
+    <!-- GYPSOPHILA -->
+    <symbol id="f-gyps" viewBox="-50 -75 100 150" overflow="visible">
+      <g style="stroke:var(--stem)" stroke-width="1" fill="none" opacity=".85">
+        <path d="M0 70 C 2 30 -2 0 -4 -30"/>
+        <path d="M-3 30 C -14 12 -26 0 -34 -16"/>
+        <path d="M-2 12 C -20 4 -30 -14 -36 -34"/>
+        <path d="M-4 -8 C -14 -22 -18 -38 -16 -52"/>
+        <path d="M-4 -22 C 4 -36 10 -46 12 -60"/>
+        <path d="M-1 20 C 12 8 24 -2 32 -12"/>
+        <path d="M0 2 C 14 -10 22 -26 24 -44"/>
+      </g>
+      <use href="#gypsBloom" transform="translate(-34 -18)"/>
+      <use href="#gypsBloom" transform="translate(-37 -36) scale(.85)"/>
+      <use href="#gypsBloom" transform="translate(-17 -54) scale(.9)"/>
+      <use href="#gypsBloom" transform="translate(-4 -32) scale(.8)"/>
+      <use href="#gypsBloom" transform="translate(12 -62) scale(.95)"/>
+      <use href="#gypsBloom" transform="translate(25 -46) scale(.85)"/>
+      <use href="#gypsBloom" transform="translate(33 -13)"/>
+      <use href="#gypsBloom" transform="translate(20 -26) scale(.75)"/>
+      <use href="#gypsBloom" transform="translate(-24 -2) scale(.8)"/>
+      <use href="#gypsBloom" transform="translate(6 -14) scale(.7)"/>
+      <use href="#gypsBloom" transform="translate(-8 -60) scale(.75)"/>
+      <use href="#gypsBloom" transform="translate(38 -30) scale(.7)"/>
+    </symbol>
+
+    <!-- EUCALYPTUS -->
+    <symbol id="f-euca" viewBox="-45 -80 90 160" overflow="visible">
+      <path d="M4 75 C 0 40 -4 5 2 -30 C 5 -48 10 -60 16 -70" style="stroke:var(--euca-deep)" stroke-width="1.4" fill="none"/>
+      <g>
+        <ellipse cx="-8" cy="48" rx="8.5" ry="10" transform="rotate(-24 -8 48)" style="fill:var(--euca)" opacity=".9"/>
+        <ellipse cx="13" cy="36" rx="8" ry="9.5" transform="rotate(28 13 36)" style="fill:var(--euca-deep)" opacity=".85"/>
+        <ellipse cx="-10" cy="22" rx="8.5" ry="10" transform="rotate(-30 -10 22)" style="fill:var(--euca)" opacity=".95"/>
+        <ellipse cx="12" cy="8" rx="7.5" ry="9" transform="rotate(26 12 8)" style="fill:var(--euca)" opacity=".8"/>
+        <ellipse cx="-9" cy="-8" rx="8" ry="9.5" transform="rotate(-26 -9 -8)" style="fill:var(--euca-deep)" opacity=".9"/>
+        <ellipse cx="12" cy="-24" rx="7" ry="8.5" transform="rotate(30 12 -24)" style="fill:var(--euca)" opacity=".92"/>
+        <ellipse cx="-4" cy="-40" rx="7" ry="8.5" transform="rotate(-20 -4 -40)" style="fill:var(--euca)" opacity=".85"/>
+        <ellipse cx="14" cy="-52" rx="6" ry="7.5" transform="rotate(32 14 -52)" style="fill:var(--euca-deep)" opacity=".88"/>
+        <ellipse cx="8" cy="-66" rx="5" ry="6.5" transform="rotate(12 8 -66)" style="fill:var(--euca)" opacity=".95"/>
+      </g>
+    </symbol>
+
+    <!-- STATICE -->
+    <symbol id="f-statice" viewBox="-50 -70 100 140" overflow="visible">
+      <g style="stroke:var(--stem)" stroke-width="1.2" fill="none" opacity=".9">
+        <path d="M0 65 C 1 35 0 10 -2 -12"/>
+        <path d="M-2 -12 C -12 -26 -20 -34 -26 -44"/>
+        <path d="M-2 -12 C 0 -28 2 -40 4 -52"/>
+        <path d="M-1 6 C 12 -8 20 -20 28 -30"/>
+      </g>
+      <g>
+        <use href="#statFloret" transform="translate(-28 -47)"/>
+        <use href="#statFloret" transform="translate(-21 -40) scale(.85)"/>
+        <use href="#statFloret" transform="translate(-33 -39) scale(.8)"/>
+        <use href="#statFloret" transform="translate(4 -55)"/>
+        <use href="#statFloret" transform="translate(-3 -48) scale(.85)"/>
+        <use href="#statFloret" transform="translate(11 -49) scale(.8)"/>
+        <use href="#statFloret" transform="translate(30 -33)"/>
+        <use href="#statFloret" transform="translate(23 -26) scale(.85)"/>
+        <use href="#statFloret" transform="translate(35 -25) scale(.75)"/>
+      </g>
+    </symbol>
+
+    <!-- single loose petal (ambient) -->
+    <symbol id="f-petal" viewBox="-12 -20 24 28" overflow="visible">
+      <path d="M0 6 C -9 1 -11 -12 0 -19 C 11 -12 9 1 0 6 Z" style="fill:var(--rose-out)" opacity=".8"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ==================== LOADER ==================== -->
+<div id="loader" aria-hidden="true">
+  <div class="ld-brand"><span class="label">TŌKA — NATURALLY DRIED BOUQUET</span></div>
+  <svg class="ld-flower" viewBox="-60 -60 120 120">
+    <g class="ld-petals"></g>
+    <circle r="4" fill="#855757"/>
+  </svg>
+  <div class="ld-count en"><span id="ldNum">0</span><small> %</small></div>
+</div>
+
+<!-- ==================== FIXED UI ==================== -->
+<div class="progress" id="progressBar"></div>
+<nav>
+  <a class="nav-logo" href="#intro" data-nav>
+    <span class="disp">TŌKA</span><span class="jp">永花</span>
+  </a>
+  <div class="nav-idx">
+    <a href="#intro" data-nav data-sec="intro">00</a>
+    <a href="#anatomy" data-nav data-sec="anatomy">01</a>
+    <a href="#breeze" data-nav data-sec="breeze">02</a>
+    <a href="#preservation" data-nav data-sec="preservation">03</a>
+    <a href="#spec" data-nav data-sec="spec">04</a>
+    <a href="#features" data-nav data-sec="features">05</a>
+    <a href="#reviews" data-nav data-sec="reviews">06</a>
+    <a href="#preorder" data-nav data-sec="preorder">07</a>
+  </div>
+  <div class="nav-now" id="navNow">00 — INTRO</div>
+</nav>
+<div id="cursor"><span class="dot"></span></div>
+
+<main>
+
+<!-- ==================== 00 INTRO ==================== -->
+<section id="intro" data-secname="00 — INTRO">
+  <div class="hero-stage">
+    <svg class="hero-bouquet" viewBox="0 0 400 520" aria-label="TŌKA 01 ドライブーケ">
+      <g style="stroke:var(--stem)" stroke-width="1.6" fill="none" opacity=".8">
+        <path d="M200 430 C 196 360 188 300 176 250"/>
+        <path d="M200 430 C 204 360 214 300 236 240"/>
+        <path d="M200 430 C 198 370 172 310 148 268"/>
+        <path d="M200 430 C 206 375 232 320 262 282"/>
+      </g>
+      <g class="bq-statice" opacity=".95"><use href="#f-statice" width="170" height="238" x="-85" y="-119" transform="translate(136 218) rotate(-14)"/></g>
+      <g class="bq-euca"><use href="#f-euca" width="160" height="284" x="-80" y="-142" transform="translate(272 190) rotate(16)"/></g>
+      <g class="bq-gyps"><use href="#f-gyps" width="180" height="270" x="-90" y="-135" transform="translate(158 170) rotate(-8)"/></g>
+      <g class="bq-rose"><use href="#f-rose" width="170" height="170" x="-85" y="-85" transform="translate(206 226)"/></g>
+      <g class="bq-wrap">
+        <path d="M155 400 L 245 400 L 214 505 L 186 505 Z" style="fill:var(--kraft)"/>
+        <path d="M155 400 L 200 418 L 245 400 L 214 505 L 186 505 Z" style="fill:var(--kraft-deep)" opacity=".55"/>
+        <path d="M163 424 L 237 424" style="stroke:var(--brass)" stroke-width=".8" opacity=".7" fill="none"/>
+      </g>
+      <g class="bq-tag">
+        <path d="M228 430 C 240 442 250 452 254 462" style="stroke:var(--brass-deep)" stroke-width=".8" fill="none"/>
+        <rect x="246" y="460" width="30" height="16" rx="1.5" style="fill:var(--brass)" transform="rotate(12 246 460)"/>
+        <text x="252" y="472" transform="rotate(12 246 460)" font-size="6.5" letter-spacing="1.5" fill="#3E362D" font-family="Cormorant Garamond,serif">TŌKA</text>
+      </g>
+    </svg>
+
+    <div class="float-petal fp1"><svg viewBox="-12 -20 24 28"><use href="#f-petal" width="24" height="28" x="-12" y="-20"/></svg></div>
+    <div class="float-petal fp2"><svg viewBox="-12 -20 24 28"><use href="#f-petal" width="24" height="28" x="-12" y="-20"/></svg></div>
+    <div class="float-petal fp3"><svg viewBox="-12 -20 24 28"><use href="#f-petal" width="24" height="28" x="-12" y="-20"/></svg></div>
+    <div class="float-petal fp4"><svg viewBox="-12 -20 24 28"><use href="#f-petal" width="24" height="28" x="-12" y="-20"/></svg></div>
+    <div class="float-petal fp5"><svg viewBox="-12 -20 24 28"><use href="#f-petal" width="24" height="28" x="-12" y="-20"/></svg></div>
+    <div class="float-petal fp6"><svg viewBox="-12 -20 24 28"><use href="#f-petal" width="24" height="28" x="-12" y="-20"/></svg></div>
+
+    <div class="hero-type">
+      <h1>
+        <span class="row"><span data-hero-row>TIME,</span></span>
+        <span class="row"><span data-hero-row>PRESERVED.</span></span>
+      </h1>
+      <p class="hero-jp" data-hero-fade>時間を、閉じ込める。</p>
+      <div class="hero-meta" data-hero-fade>
+        <span class="label">TŌKA 01</span>
+        <span class="label" style="color:var(--brass)">SIGNATURE DRIED BOUQUET</span>
+        <span class="label">SINCE 2026</span>
+      </div>
+    </div>
+
+    <div class="hero-scroll" data-hero-fade>
+      <span class="label">SCROLL TO EXPERIENCE</span>
+      <span class="stem"></span>
+    </div>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>NATURALLY DRIED <i class="sep">•</i> TŌKA 01 <i class="sep">•</i> SINCE 2026 <i class="sep">•</i> TIME, PRESERVED <i class="sep">•</i> 永花 <i class="sep">•</i> 14 DAYS OF SILENCE <i class="sep">•</i>&nbsp;</span>
+      <span>NATURALLY DRIED <i class="sep">•</i> TŌKA 01 <i class="sep">•</i> SINCE 2026 <i class="sep">•</i> TIME, PRESERVED <i class="sep">•</i> 永花 <i class="sep">•</i> 14 DAYS OF SILENCE <i class="sep">•</i>&nbsp;</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 01 ANATOMY ==================== -->
+<section id="anatomy" data-secname="01 — ANATOMY">
+  <div class="an-stage">
+    <div class="an-head">
+      <div class="eyebrow" style="justify-content:center;display:flex;align-items:center;gap:1rem;margin-bottom:1rem">
+        <span class="no en">01</span><span class="rule" style="width:48px;height:1px;background:var(--line)"></span><span class="label">ANATOMY — EXPLODED VIEW</span>
+      </div>
+      <h2>一輪ずつ、ほどける。</h2>
+    </div>
+
+    <svg class="an-bouquet" viewBox="0 0 400 520">
+      <g class="anb-stems" style="stroke:var(--stem)" stroke-width="1.6" fill="none" opacity=".8">
+        <path d="M200 430 C 196 360 188 300 176 250"/>
+        <path d="M200 430 C 204 360 214 300 236 240"/>
+        <path d="M200 430 C 198 370 172 310 148 268"/>
+        <path d="M200 430 C 206 375 232 320 262 282"/>
+      </g>
+      <g class="anb-wrap">
+        <path d="M155 400 L 245 400 L 214 505 L 186 505 Z" style="fill:var(--kraft)"/>
+        <path d="M155 400 L 200 418 L 245 400 L 214 505 L 186 505 Z" style="fill:var(--kraft-deep)" opacity=".55"/>
+      </g>
+      <g class="anb-item anb-statice"><use href="#f-statice" width="170" height="238" x="-85" y="-119" transform="translate(136 218) rotate(-14)"/></g>
+      <g class="anb-item anb-euca"><use href="#f-euca" width="160" height="284" x="-80" y="-142" transform="translate(272 190) rotate(16)"/></g>
+      <g class="anb-item anb-gyps"><use href="#f-gyps" width="180" height="270" x="-90" y="-135" transform="translate(158 170) rotate(-8)"/></g>
+      <g class="anb-item anb-rose"><use href="#f-rose" width="170" height="170" x="-85" y="-85" transform="translate(206 226)"/></g>
+    </svg>
+
+    <div class="an-label al-rose">
+      <span class="tick"></span>
+      <div class="lname">GARDEN ROSE</div>
+      <div class="ljp label" style="color:var(--brass)">ローズ</div>
+      <p>摘みとりから6時間以内に乾燥室へ。色が最も濃い瞬間を封じる。</p>
+    </div>
+    <div class="an-label al-gyps">
+      <span class="tick"></span>
+      <div class="lname">GYPSOPHILA</div>
+      <div class="ljp label" style="color:var(--brass)">かすみ草</div>
+      <p>1本に約120の小花。乾いてなお、雪のように軽い。</p>
+    </div>
+    <div class="an-label al-euca">
+      <span class="tick"></span>
+      <div class="lname">EUCALYPTUS</div>
+      <div class="ljp label" style="color:var(--brass)">ユーカリ</div>
+      <p>香りは乾燥後も3年続く。時間が経つほど銀灰色が深くなる。</p>
+    </div>
+    <div class="an-label al-statice">
+      <span class="tick"></span>
+      <div class="lname">STATICE</div>
+      <div class="ljp label" style="color:var(--brass)">スターチス</div>
+      <p>退色率0.2%/年。ドライフラワーの中で最も色が褪せない花。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== INTERLUDE ==================== -->
+<section id="interlude" data-secname="—— INTERLUDE">
+  <p class="line">花は、枯れて終わるのではない。</p>
+  <p class="line">水分という時間を手放して、</p>
+  <p class="line">色だけが、静かに残る。</p>
+  <p class="line"><em>TŌKA</em>は、その瞬間を設計する。</p>
+</section>
+
+<!-- ==================== 02 BREEZE ==================== -->
+<section id="breeze" data-secname="02 — BREEZE">
+  <canvas id="breezeCanvas"></canvas>
+  <div class="shead">
+    <div class="eyebrow"><span class="no en">02</span><span class="rule"></span><span class="label">BREEZE — INTERACTIVE</span></div>
+    <h2>風に、触れる。</h2>
+    <p class="sub-en">EVERY PETAL REMEMBERS THE WIND</p>
+  </div>
+  <p class="breeze-hint label">MOVE YOUR CURSOR — 画面に触れて、風を送る</p>
+</section>
+
+<!-- ==================== 03 PRESERVATION ==================== -->
+<section id="preservation" data-secname="03 — PRESERVATION">
+  <div class="pv-stage">
+    <div class="pv-head">
+      <div class="eyebrow" style="justify-content:center;display:flex;align-items:center;gap:1rem;margin-bottom:1rem">
+        <span class="no en">03</span><span class="rule" style="width:48px;height:1px;background:var(--line)"></span><span class="label">PRESERVATION — 14 DAYS</span>
+      </div>
+      <h2>色は、褪せて、深くなる。</h2>
+    </div>
+
+    <svg class="pv-flower" viewBox="-90 -80 180 175">
+      <path d="M-2 88 C -1 60 0 35 0 46" style="stroke:var(--pv-leaf-deep)" stroke-width="1.6" fill="none"/>
+      <path d="M0 62 C -16 56 -26 44 -30 30" style="stroke:var(--pv-leaf-deep)" stroke-width="1.2" fill="none"/>
+      <ellipse cx="-31" cy="34" rx="9" ry="12" transform="rotate(-36 -31 34)" style="fill:var(--pv-leaf)"/>
+      <path d="M1 74 C 16 68 26 58 32 46" style="stroke:var(--pv-leaf-deep)" stroke-width="1.2" fill="none"/>
+      <ellipse cx="33" cy="48" rx="8" ry="11" transform="rotate(32 33 48)" style="fill:var(--pv-leaf)"/>
+      <g class="pv-rose-wrap">
+        <g style="fill:var(--pv-p-out)" opacity=".96">
+          <use href="#petalR" transform="scale(1.55) rotate(0)"/>
+          <use href="#petalR" transform="scale(1.5) rotate(46)"/>
+          <use href="#petalR" transform="scale(1.57) rotate(93)"/>
+          <use href="#petalR" transform="scale(1.5) rotate(139)"/>
+          <use href="#petalR" transform="scale(1.56) rotate(184)"/>
+          <use href="#petalR" transform="scale(1.48) rotate(228)"/>
+          <use href="#petalR" transform="scale(1.54) rotate(272)"/>
+          <use href="#petalR" transform="scale(1.5) rotate(317)"/>
+        </g>
+        <g style="fill:var(--pv-p-mid)" opacity=".97">
+          <use href="#petalR" transform="scale(1.12) rotate(24)"/>
+          <use href="#petalR" transform="scale(1.06) rotate(85)"/>
+          <use href="#petalR" transform="scale(1.13) rotate(146)"/>
+          <use href="#petalR" transform="scale(1.07) rotate(204)"/>
+          <use href="#petalR" transform="scale(1.12) rotate(262)"/>
+          <use href="#petalR" transform="scale(1.06) rotate(322)"/>
+        </g>
+        <g style="fill:var(--pv-p-in)">
+          <use href="#petalR" transform="scale(.7) rotate(10)"/>
+          <use href="#petalR" transform="scale(.67) rotate(82)"/>
+          <use href="#petalR" transform="scale(.71) rotate(154)"/>
+          <use href="#petalR" transform="scale(.68) rotate(226)"/>
+          <use href="#petalR" transform="scale(.7) rotate(298)"/>
+        </g>
+        <g style="fill:var(--pv-p-core)">
+          <use href="#petalR" transform="scale(.36) rotate(55)"/>
+          <use href="#petalR" transform="scale(.37) rotate(175)"/>
+          <use href="#petalR" transform="scale(.35) rotate(295)"/>
+          <circle r="6"/>
+        </g>
+      </g>
+    </svg>
+
+    <div class="pv-meter">
+      <div class="bar"><i id="pvBar"></i></div>
+      <div>
+        <div class="pv-m-num"><span id="pvMoist">100</span><span style="font-size:.42em">%</span></div>
+        <div class="pv-m-cap label">MOISTURE — 含水率</div>
+      </div>
+    </div>
+    <div class="pv-day">
+      DAY <span id="pvDay">00</span><span style="font-size:.6em;color:var(--ink-faint)"> / 14</span>
+      <div class="label" style="margin-top:.3rem;text-align:right">NATURAL DRYING</div>
+    </div>
+    <div class="pv-state">
+      <span class="st fresh" id="pvStFresh">FRESH CUT</span>
+      <span class="st dried" id="pvStDried">PRESERVED</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 04 SPEC ==================== -->
+<section id="spec" data-secname="04 — SPEC">
+  <div class="shead" data-reveal>
+    <div class="eyebrow"><span class="no en">04</span><span class="rule"></span><span class="label">SPECIFICATIONS</span></div>
+    <h2>数字は、枯れない。</h2>
+    <p class="sub-en">MEASURED, LIKE AN INSTRUMENT</p>
+  </div>
+  <div class="spec-grid">
+    <div class="spec-cell" data-reveal>
+      <div class="spec-num"><span class="cnt" data-count="14">0</span></div>
+      <div class="spec-unit">days</div>
+      <div class="spec-jp">自然乾燥にかける日数</div>
+    </div>
+    <div class="spec-cell" data-reveal>
+      <div class="spec-num"><span class="cnt" data-count="27">0</span></div>
+      <div class="spec-unit">steps</div>
+      <div class="spec-jp">すべて手作業の工程数</div>
+    </div>
+    <div class="spec-cell" data-reveal>
+      <div class="spec-num"><span class="cnt" data-count="3">0</span><span class="suffix">+</span></div>
+      <div class="spec-unit">years</div>
+      <div class="spec-jp">色と香りが続く年月</div>
+    </div>
+    <div class="spec-cell" data-reveal>
+      <div class="spec-num"><span class="cnt" data-count="48">0</span></div>
+      <div class="spec-unit">stems</div>
+      <div class="spec-jp">一束に使う花材の本数</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 05 FEATURES ==================== -->
+<section id="features" data-secname="05 — FEATURES">
+  <div class="shead" data-reveal>
+    <div class="eyebrow"><span class="no en">05</span><span class="rule"></span><span class="label">FEATURES</span></div>
+    <h2>枯れないための、六つの設計。</h2>
+    <p class="sub-en">ENGINEERED STILLNESS</p>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-card" data-reveal>
+      <div class="fno">F-01</div>
+      <h3>Natural Dry</h3>
+      <div class="fjp">自然乾燥</div>
+      <p>温度18℃・湿度40%の乾燥室で14日間。熱も薬品も使わず、自然のままに水分だけを手放させる。</p>
+      <svg class="ficon" viewBox="0 0 30 30"><path d="M15 26 C15 26 6 18 6 11 A9 9 0 0 1 24 11 C24 18 15 26 15 26 Z"/><path d="M15 26 L15 8"/></svg>
+    </div>
+    <div class="feat-card" data-reveal>
+      <div class="fno">F-02</div>
+      <h3>Color Lock</h3>
+      <div class="fjp">無着色・無漂白</div>
+      <p>染料もブリーチも一切使わない。花本来の色素だけで、褪せた美しさをつくる。</p>
+      <svg class="ficon" viewBox="0 0 30 30"><rect x="8" y="13" width="14" height="11" rx="1.5"/><path d="M11 13 V9 a4 4 0 0 1 8 0 v4"/><circle cx="15" cy="18.5" r="1.6"/></svg>
+    </div>
+    <div class="feat-card" data-reveal>
+      <div class="fno">F-03</div>
+      <h3>Zero Care</h3>
+      <div class="fjp">水やり不要</div>
+      <p>水も、日当たりも、剪定もいらない。飾るだけで、3年後も美しいまま。</p>
+      <svg class="ficon" viewBox="0 0 30 30"><path d="M15 24 C15 24 8 18 8 12.5 A7 7 0 0 1 22 12.5 C22 18 15 24 15 24 Z"/><path d="M6 6 L24 26"/></svg>
+    </div>
+    <div class="feat-card" data-reveal>
+      <div class="fno">F-04</div>
+      <h3>Scent Keep</h3>
+      <div class="fjp">残り香</div>
+      <p>ユーカリの香りが、ほのかに続く。強くは香らない。近づいた人にだけ、わかる距離で。</p>
+      <svg class="ficon" viewBox="0 0 30 30"><path d="M9 24 C9 14 13 7 21 5"/><ellipse cx="12" cy="17" rx="2.6" ry="3.4" transform="rotate(-28 12 17)"/><ellipse cx="17" cy="10" rx="2.4" ry="3.2" transform="rotate(24 17 10)"/></svg>
+    </div>
+    <div class="feat-card" data-reveal>
+      <div class="fno">F-05</div>
+      <h3>Gift Ready</h3>
+      <div class="fjp">真鍮タグ刻印</div>
+      <p>付属の真鍮タグに、日付と名前を刻印できる。贈る日付を、永遠にする。</p>
+      <svg class="ficon" viewBox="0 0 30 30"><rect x="7" y="11" width="16" height="10" rx="1.5"/><circle cx="10.5" cy="14.5" r="1"/><path d="M10.5 13.5 C 8 9 12 6 14 8"/></svg>
+    </div>
+    <div class="feat-card" data-reveal>
+      <div class="fno">F-06</div>
+      <h3>Re:Bloom</h3>
+      <div class="fjp">無料リメイク</div>
+      <p>色が褪せきったら、お送りください。無料でリメイクして戻します。花は二度咲く。</p>
+      <svg class="ficon" viewBox="0 0 30 30"><path d="M23 15 A8 8 0 1 1 19 8"/><path d="M19 4 L19 8 L23 8"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 06 REVIEWS ==================== -->
+<section id="reviews" data-secname="06 — REVIEWS">
+  <div class="shead" data-reveal>
+    <div class="eyebrow"><span class="no en">06</span><span class="rule"></span><span class="label">PRESS &amp; REVIEWS</span></div>
+    <h2>世界が、そっと息を呑んだ。</h2>
+    <p class="sub-en">AS QUIET AS APPLAUSE GETS</p>
+  </div>
+  <div class="rev-grid">
+    <div class="rev-card" data-reveal>
+      <div class="rev-stars">★★★★★<span class="score en">5.0</span></div>
+      <p class="rev-quote">「花瓶の水を替える日々が終わり、ただ眺める日々が始まる。TŌKA 01は『枯れる』という言葉の定義を、静かに書き換えた。」</p>
+      <div class="rev-media">BOTANICA JOURNAL</div>
+    </div>
+    <div class="rev-card" data-reveal>
+      <div class="rev-stars">★★★★★<span class="score en">4.8</span></div>
+      <p class="rev-quote">「テックプロダクトのような精度で語られる、一束の花。乾燥室の14日間の記録を読むだけで、手元に置きたくなる。」</p>
+      <div class="rev-media">STILL LIFE MAG</div>
+    </div>
+    <div class="rev-card" data-reveal>
+      <div class="rev-stars">★★★★★<span class="score en">4.9</span></div>
+      <p class="rev-quote">「贈り物の正解を、ずっと探していた。日付を刻んだ真鍮タグと、褪せるほど深くなる色。これは花ではなく、時間の額装だ。」</p>
+      <div class="rev-media">FLEUR &amp; TIME</div>
+    </div>
+  </div>
+  <p class="rev-note">※掲載メディア・レビューはすべて架空のものです。</p>
+</section>
+
+<!-- ==================== 07 PRE-ORDER ==================== -->
+<section id="preorder" data-secname="07 — PRE-ORDER">
+  <div class="po-inner">
+    <div class="eyebrow" data-reveal><span class="no en">07</span><span class="rule"></span><span class="label">PRE-ORDER</span></div>
+    <h2 class="po-title" data-reveal>LET TIME<br>BLOOM FOREVER.</h2>
+    <p class="po-jp" data-reveal>いちばん美しい瞬間を、あなたの部屋に。</p>
+    <div class="po-price en" data-reveal>¥6,800<small> TAX IN / FREE SHIPPING — 税込・送料無料</small></div>
+    <div class="po-when" data-reveal>PRE-ORDER — AUTUMN 2026</div>
+    <div data-reveal>
+      <button class="po-btn" id="poBtn" type="button">先行予約リストに登録する</button>
+    </div>
+    <p class="po-note" data-reveal>※TŌKAはデモンストレーション用の架空ブランドです。実際の販売は行っておりません。</p>
+  </div>
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>TŌKA 01 <i class="sep">•</i> ¥6,800 <i class="sep">•</i> AUTUMN 2026 <i class="sep">•</i> TIME, PRESERVED <i class="sep">•</i> 永花 <i class="sep">•</i> NATURALLY DRIED <i class="sep">•</i>&nbsp;</span>
+      <span>TŌKA 01 <i class="sep">•</i> ¥6,800 <i class="sep">•</i> AUTUMN 2026 <i class="sep">•</i> TIME, PRESERVED <i class="sep">•</i> 永花 <i class="sep">•</i> NATURALLY DRIED <i class="sep">•</i>&nbsp;</span>
+    </div>
+  </div>
+  <footer>
+    <span class="f-logo">TŌKA <span style="font-size:.6em;letter-spacing:.4em">永花</span></span>
+    <span>CONCEPT DEMO — NOT A REAL PRODUCT</span>
+    <span>© 2026 TŌKA (FICTIONAL)</span>
+  </footer>
+</section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<script>
+(function(){
+'use strict';
+var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var HAS_GSAP = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
+
+/* ---------- loader flower petals (built once) ---------- */
+var ldPetals = [];
+(function buildLoader(){
+  var g = document.querySelector('.ld-petals');
+  if(!g) return;
+  var cols = ['#C0908C','#B37F7C','#C0908C','#9E6B6A','#B37F7C','#C0908C','#9E6B6A','#B37F7C'];
+  for(var i=0;i<8;i++){
+    var wrap = document.createElementNS('http://www.w3.org/2000/svg','g');
+    wrap.setAttribute('transform','rotate('+(i*45)+')');
+    var p = document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('d','M0 2 C -13 -4 -16 -26 0 -40 C 16 -26 13 -4 0 2 Z');
+    p.setAttribute('fill',cols[i]);
+    p.setAttribute('opacity','.9');
+    p.style.transform='scale(0)';
+    wrap.appendChild(p);
+    g.appendChild(wrap);
+    ldPetals.push(p);
+  }
+})();
+
+var loader = document.getElementById('loader');
+var ldNum = document.getElementById('ldNum');
+
+function finishLoader(cb){
+  if(loader) loader.classList.add('done');
+  if(cb) setTimeout(cb, 250);
+}
+
+function runLoader(cb){
+  if(REDUCED || !loader){ if(loader) loader.style.display='none'; if(cb) cb(); return; }
+  var t0 = performance.now(), DUR = 1500;
+  function frame(now){
+    var t = Math.min(1,(now-t0)/DUR);
+    var e = 1-Math.pow(1-t,3); // easeOutCubic
+    var pct = Math.round(e*100);
+    ldNum.textContent = pct;
+    for(var i=0;i<ldPetals.length;i++){
+      var s = Math.max(0, Math.min(1, (e*100 - i*7) / 42));
+      ldPetals[i].style.transform = 'scale('+s+')';
+    }
+    if(t<1){ requestAnimationFrame(frame); }
+    else { setTimeout(function(){ finishLoader(cb); }, 240); }
+  }
+  requestAnimationFrame(frame);
+}
+
+/* ---------- reduced-motion static finalize ---------- */
+function staticFinalize(){
+  document.documentElement.classList.add('reduced');
+  document.querySelectorAll('.cnt').forEach(function(el){
+    el.textContent = el.getAttribute('data-count');
+  });
+  var m = document.getElementById('pvMoist'); if(m) m.textContent = '0';
+  var d = document.getElementById('pvDay');   if(d) d.textContent = '14';
+  var b = document.getElementById('pvBar');   if(b) b.style.transform = 'scaleY(0)';
+  drawStaticBreeze();
+}
+
+/* ---------- breeze canvas ---------- */
+var bCanvas = document.getElementById('breezeCanvas');
+var bCtx = bCanvas ? bCanvas.getContext('2d') : null;
+var petals = [], bW=0, bH=0, bDpr=1, bRunning=false, bRaf=null;
+var wind = {x:0,y:0,px:-9999,py:-9999,vx:0,vy:0,has:false};
+var PCOLORS = [
+  [192,144,140],[179,127,124],[216,180,172],[158,107,106],[201,169,160],[150,163,149]
+];
+
+function sizeBreeze(){
+  if(!bCanvas) return;
+  bDpr = Math.min(2, window.devicePixelRatio||1);
+  var r = bCanvas.parentElement.getBoundingClientRect();
+  bW = r.width; bH = r.height;
+  bCanvas.width = bW*bDpr; bCanvas.height = bH*bDpr;
+  bCtx.setTransform(bDpr,0,0,bDpr,0,0);
+}
+function makePetal(fromTop){
+  var c = PCOLORS[(Math.random()*PCOLORS.length)|0];
+  return {
+    x: Math.random()*bW,
+    y: fromTop ? -30 : Math.random()*bH,
+    vx: (Math.random()-.5)*.3,
+    vy: .18 + Math.random()*.4,
+    s: 7 + Math.random()*13,
+    a: Math.random()*Math.PI*2,
+    spin: (Math.random()-.5)*.02,
+    ph: Math.random()*Math.PI*2,
+    sway: .3+Math.random()*.7,
+    col: 'rgba('+c[0]+','+c[1]+','+c[2]+',',
+    op: .45+Math.random()*.4
+  };
+}
+function drawPetalShape(p){
+  bCtx.save();
+  bCtx.translate(p.x,p.y);
+  bCtx.rotate(p.a);
+  var s = p.s;
+  bCtx.beginPath();
+  bCtx.moveTo(0, s*.5);
+  bCtx.bezierCurveTo(-s*.6, s*.12, -s*.52, -s*.62, 0, -s);
+  bCtx.bezierCurveTo(s*.52, -s*.62, s*.6, s*.12, 0, s*.5);
+  bCtx.fillStyle = p.col + p.op + ')';
+  bCtx.fill();
+  bCtx.restore();
+}
+function initBreeze(){
+  if(!bCanvas) return;
+  sizeBreeze();
+  var n = bW < 640 ? 42 : 70;
+  petals = [];
+  for(var i=0;i<n;i++) petals.push(makePetal(false));
+}
+function stepBreeze(t){
+  bCtx.clearRect(0,0,bW,bH);
+  wind.vx *= .92; wind.vy *= .92;
+  for(var i=0;i<petals.length;i++){
+    var p = petals[i];
+    // ambient sway + gravity
+    p.vx += Math.sin(t*.0006 + p.ph)*.004*p.sway;
+    p.vy += .006;
+    // pointer wind
+    if(wind.has){
+      var dx = p.x - wind.px, dy = p.y - wind.py;
+      var d2 = dx*dx+dy*dy;
+      if(d2 < 32400){ // 180px
+        var f = 1 - Math.sqrt(d2)/180;
+        p.vx += wind.vx * f * .16;
+        p.vy += wind.vy * f * .16;
+        p.spin += (Math.random()-.5)*.03*f;
+      }
+    }
+    p.vx *= .975; p.vy *= .975;
+    if(p.vy < .12) p.vy += .01;
+    p.x += p.vx; p.y += p.vy;
+    p.a += p.spin + Math.sin(t*.0005+p.ph)*.004;
+    if(p.y > bH+40){ petals[i]=makePetal(true); }
+    else if(p.x < -60) p.x = bW+50;
+    else if(p.x > bW+60) p.x = -50;
+    drawPetalShape(p);
+  }
+  if(bRunning) bRaf = requestAnimationFrame(stepBreeze);
+}
+function startBreeze(){ if(!bRunning && bCtx && !REDUCED){ bRunning=true; bRaf=requestAnimationFrame(stepBreeze);} }
+function stopBreeze(){ bRunning=false; if(bRaf) cancelAnimationFrame(bRaf); }
+function drawStaticBreeze(){
+  if(!bCtx) return;
+  initBreeze();
+  for(var i=0;i<petals.length;i++){ drawPetalShape(petals[i]); }
+}
+function onPointer(e){
+  var r = bCanvas.getBoundingClientRect();
+  var x,y;
+  if(e.touches && e.touches.length){ x=e.touches[0].clientX-r.left; y=e.touches[0].clientY-r.top; }
+  else { x=e.clientX-r.left; y=e.clientY-r.top; }
+  if(wind.px>-9000){
+    wind.vx += (x-wind.px)*.35;
+    wind.vy += (y-wind.py)*.35;
+    var mx = 14;
+    if(wind.vx>mx)wind.vx=mx; if(wind.vx<-mx)wind.vx=-mx;
+    if(wind.vy>mx)wind.vy=mx; if(wind.vy<-mx)wind.vy=-mx;
+  }
+  wind.px=x; wind.py=y; wind.has=true;
+}
+if(bCanvas && !REDUCED){
+  window.addEventListener('resize', function(){ sizeBreeze(); }, {passive:true});
+  var bsec = document.getElementById('breeze');
+  bsec.addEventListener('mousemove', onPointer, {passive:true});
+  bsec.addEventListener('touchmove', onPointer, {passive:true});
+  bsec.addEventListener('touchstart', onPointer, {passive:true});
+  bsec.addEventListener('mouseleave', function(){ wind.px=-9999; wind.has=false; });
+  var bio = new IntersectionObserver(function(en){
+    en.forEach(function(x){ x.isIntersecting ? startBreeze() : stopBreeze(); });
+  },{threshold:.05});
+  bio.observe(bsec);
+  initBreeze();
+}
+
+/* ---------- nav current + active ---------- */
+(function navWatch(){
+  var now = document.getElementById('navNow');
+  var links = {};
+  document.querySelectorAll('.nav-idx a[data-sec]').forEach(function(a){ links[a.getAttribute('data-sec')] = a; });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        var name = en.target.getAttribute('data-secname') || '';
+        if(now) now.textContent = name;
+        var id = en.target.id;
+        Object.keys(links).forEach(function(k){ links[k].classList.toggle('on', k===id); });
+      }
+    });
+  },{rootMargin:'-40% 0px -55% 0px'});
+  document.querySelectorAll('section[data-secname]').forEach(function(s){ io.observe(s); });
+})();
+
+/* ---------- pre-order demo button ---------- */
+(function(){
+  var btn = document.getElementById('poBtn');
+  if(!btn) return;
+  var orig = btn.textContent, lock=false;
+  btn.addEventListener('click', function(){
+    if(lock) return; lock=true;
+    btn.textContent = '※ デモのため送信されません';
+    setTimeout(function(){ btn.textContent = orig; lock=false; }, 2200);
+  });
+})();
+
+/* ================================================================
+   MOTION (gsap + lenis) — skipped entirely under reduced motion
+================================================================ */
+if(REDUCED || !HAS_GSAP){
+  staticFinalize();
+  runLoader(null);
+} else {
+
+gsap.registerPlugin(ScrollTrigger);
+
+/* Lenis smooth scroll */
+var lenis = null;
+try{
+  lenis = new Lenis({ lerp:.11, wheelMultiplier:1 });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(function(time){ lenis.raf(time*1000); });
+  gsap.ticker.lagSmoothing(0);
+}catch(e){ lenis = null; }
+window.__toka = { lenis: lenis };
+
+/* anchor nav */
+document.querySelectorAll('[data-nav]').forEach(function(a){
+  a.addEventListener('click', function(ev){
+    var id = a.getAttribute('href');
+    var el = document.querySelector(id);
+    if(!el) return;
+    ev.preventDefault();
+    if(lenis) lenis.scrollTo(el, {offset:0, duration:1.4});
+    else el.scrollIntoView({behavior:'smooth'});
+  });
+});
+
+/* custom cursor */
+(function(){
+  if(!window.matchMedia('(pointer:fine)').matches) return;
+  var cur = document.getElementById('cursor');
+  var cx=-100, cy=-100, tx=-100, ty=-100, shown=false;
+  window.addEventListener('mousemove', function(e){
+    tx=e.clientX; ty=e.clientY;
+    if(!shown){ shown=true; cur.style.opacity='1'; cx=tx; cy=ty; }
+  },{passive:true});
+  gsap.ticker.add(function(){
+    cx += (tx-cx)*.18; cy += (ty-cy)*.18;
+    cur.style.transform = 'translate('+cx+'px,'+cy+'px)';
+  });
+  document.querySelectorAll('a,button,.feat-card').forEach(function(el){
+    el.addEventListener('mouseenter', function(){ cur.classList.add('grow'); });
+    el.addEventListener('mouseleave', function(){ cur.classList.remove('grow'); });
+  });
+})();
+
+/* progress bar */
+gsap.to('#progressBar',{
+  scaleX:1, ease:'none',
+  scrollTrigger:{ trigger:document.body, start:'top top', end:'bottom bottom', scrub:.3 }
+});
+
+/* hero intro (plays after loader) */
+gsap.set('[data-hero-row]',{yPercent:110});
+gsap.set('[data-hero-fade]',{opacity:0,y:20});
+gsap.set('.hero-bouquet',{opacity:0,scale:.94,transformOrigin:'50% 80%'});
+function heroIn(){
+  var tl = gsap.timeline({defaults:{ease:'power3.out'}});
+  tl.to('.hero-bouquet',{opacity:window.innerWidth<=640?.6:.9,scale:1,duration:1.6,ease:'power2.out'},0)
+    .to('[data-hero-row]',{yPercent:0,duration:1.15,stagger:.14},.15)
+    .to('[data-hero-fade]',{opacity:1,y:0,duration:.9,stagger:.12},.75);
+}
+/* hero parallax out */
+gsap.to('.hero-type',{
+  y:-70, opacity:0, ease:'none',
+  scrollTrigger:{trigger:'#intro',start:'top top',end:'75% top',scrub:.4}
+});
+gsap.to('.hero-bouquet',{
+  y:90, ease:'none',
+  scrollTrigger:{trigger:'#intro',start:'top top',end:'bottom top',scrub:.4}
+});
+/* gentle bouquet sway */
+gsap.to('.hero-bouquet',{rotate:1.4,transformOrigin:'50% 88%',duration:5.5,yoyo:true,repeat:-1,ease:'sine.inOut'});
+
+/* ---------- 01 ANATOMY ---------- */
+var mm = gsap.matchMedia();
+function buildAnatomy(cfg){
+  var tl = gsap.timeline({
+    scrollTrigger:{
+      trigger:'#anatomy', start:'top top', end:'+=280%',
+      pin:'.an-stage', scrub:.6, anticipatePin:1, invalidateOnRefresh:true
+    },
+    defaults:{ease:'none'}
+  });
+  var k = cfg.k;
+  // explode
+  tl.to('.anb-stems',{opacity:0,duration:.1},.04)
+    .to('.anb-wrap',{opacity:0,y:40,duration:.12},.04)
+    .to('.anb-rose',   {x:0,       y:-100*k, rotation:0,  duration:.3},.08)
+    .to('.anb-gyps',   {x:-175*k,  y:-55*k,  rotation:-10,duration:.3},.08)
+    .to('.anb-euca',   {x:175*k,   y:40*k,   rotation:12, duration:.3},.08)
+    .to('.anb-statice',{x:-140*k,  y:110*k,  rotation:-8, duration:.3},.08);
+
+  var labels = ['.al-rose','.al-gyps','.al-euca','.al-statice'];
+  if(cfg.sequential){
+    // mobile: labels take turns in the same bottom slot
+    labels.forEach(function(sel,i){
+      var at = .3 + i*.15;
+      tl.to(sel,{autoAlpha:1,y:0,duration:.06},at);
+      if(i<labels.length-1) tl.to(sel,{autoAlpha:0,duration:.05},at+.1);
+    });
+    gsap.set(labels,{y:16});
+  }else{
+    labels.forEach(function(sel,i){
+      var at = .36 + i*.1;
+      tl.fromTo(sel,{autoAlpha:0,y:22},{autoAlpha:1,y:0,duration:.08},at)
+        .fromTo(sel+' .tick',{scaleX:0},{scaleX:1,duration:.06},at);
+    });
+  }
+  // pad timeline to a fixed total so tween positions map 1:1 to scroll progress
+  tl.to({},{duration:.01}, cfg.sequential ? 1.04 : .99);
+  return tl;
+}
+mm.add('(min-width: 768px)', function(){ buildAnatomy({k:1.5, sequential:false}); });
+mm.add('(max-width: 767px)', function(){ buildAnatomy({k:.85, sequential:true}); });
+
+/* ---------- INTERLUDE ---------- */
+document.querySelectorAll('#interlude .line').forEach(function(line){
+  gsap.fromTo(line,{opacity:.07,y:26},{
+    opacity:1,y:0,ease:'none',
+    scrollTrigger:{trigger:line,start:'top 88%',end:'top 46%',scrub:.5}
+  });
+});
+
+/* ---------- 03 PRESERVATION ---------- */
+(function(){
+  var sec = document.getElementById('preservation');
+  var moist = document.getElementById('pvMoist');
+  var day = document.getElementById('pvDay');
+  var bar = document.getElementById('pvBar');
+  var proxy = {m:100};
+  var DRIED = {
+    '--pv-p-out':'#C0908C','--pv-p-mid':'#B37F7C','--pv-p-in':'#9E6B6A','--pv-p-core':'#855757',
+    '--pv-leaf':'#93987F','--pv-leaf-deep':'#7E8D80',
+    '--pv-bg':'#E9DFCC','--pv-ink':'#4A4033'
+  };
+  var tl = gsap.timeline({
+    scrollTrigger:{
+      trigger:sec, start:'top top', end:'+=320%',
+      pin:'.pv-stage', scrub:.6, anticipatePin:1, invalidateOnRefresh:true
+    },
+    defaults:{ease:'none'}
+  });
+  tl.to(sec, Object.assign({duration:.8},DRIED), .06)
+    .to(proxy,{m:0,duration:.8,onUpdate:function(){
+        var v = Math.round(proxy.m);
+        moist.textContent = v;
+        day.textContent = String(Math.round((100-proxy.m)*.14)).padStart(2,'0');
+        bar.style.transform = 'scaleY('+(proxy.m/100)+')';
+      }},.06)
+    .to('#pvStFresh',{opacity:.22,duration:.5},.15)
+    .to('#pvStDried',{opacity:1,duration:.5},.35)
+    .to('.pv-rose-wrap',{scale:.93,transformOrigin:'50% 50%',duration:.8},.06)
+    .to({},{duration:.14}); // hold at the end
+})();
+
+/* ---------- 04 SPEC counters (fire once) ---------- */
+document.querySelectorAll('.cnt').forEach(function(el){
+  var target = parseInt(el.getAttribute('data-count'),10);
+  ScrollTrigger.create({
+    trigger:el, start:'top 82%', once:true,
+    onEnter:function(){
+      var o = {v:0};
+      gsap.to(o,{v:target,duration:1.6,ease:'power2.out',onUpdate:function(){
+        el.textContent = Math.round(o.v);
+      }});
+    }
+  });
+});
+
+/* ---------- generic reveals ---------- */
+document.querySelectorAll('[data-reveal]').forEach(function(el){
+  gsap.to(el,{
+    opacity:1,y:0,duration:1.1,ease:'power3.out',
+    scrollTrigger:{trigger:el,start:'top 86%',once:true}
+  });
+});
+
+/* refresh after fonts settle */
+if(document.fonts && document.fonts.ready){
+  document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
+}
+window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+
+/* go */
+runLoader(heroIn);
+
+} /* end motion branch */
+})();
+</script>
+</body>
+</html>
