@@ -118,7 +118,7 @@ nav{
   nav{padding:1rem 1.25rem}
 }
 @media(max-width:640px){
-  .hero-bouquet{opacity:.6}
+  .hero-bouquet{opacity:.85}
 }
 #cursor{
   position:fixed;top:0;left:0;z-index:150;pointer-events:none;
@@ -151,7 +151,8 @@ section{position:relative}
 .hero-stage{position:relative;flex:1;display:flex;align-items:center;justify-content:center;min-height:78svh}
 .hero-bouquet{
   position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);
-  width:min(58vw,430px);opacity:.9;
+  width:min(64vw,500px);opacity:.98;
+  filter:drop-shadow(0 28px 34px rgba(62,54,45,.28)) drop-shadow(0 6px 10px rgba(62,54,45,.16));
 }
 .hero-type{
   position:relative;z-index:2;text-align:center;padding:0 4vw;
@@ -213,7 +214,7 @@ section{position:relative}
 }
 .an-head{position:absolute;top:9svh;left:0;right:0;text-align:center;z-index:5;padding:0 5vw}
 .an-head h2{font-size:clamp(1.5rem,3.6vw,2.4rem);font-weight:500;letter-spacing:.1em}
-.an-bouquet{width:min(66vw,440px);position:relative;z-index:2;overflow:visible;margin-top:6svh}
+.an-bouquet{width:min(66vw,440px);position:relative;z-index:2;overflow:visible;margin-top:6svh;filter:drop-shadow(0 22px 28px rgba(62,54,45,.22))}
 .an-label{
   position:absolute;z-index:6;max-width:280px;opacity:0;visibility:hidden;
 }
@@ -263,7 +264,7 @@ section{position:relative}
 }
 .pv-head{position:absolute;top:9svh;left:0;right:0;text-align:center;z-index:5;padding:0 5vw}
 .pv-head h2{font-size:clamp(1.5rem,3.6vw,2.4rem);font-weight:500;letter-spacing:.1em}
-.pv-flower{width:min(58vw,380px);margin-top:2svh}
+.pv-flower{width:min(65vw,450px);margin-top:2svh;filter:drop-shadow(0 24px 30px rgba(62,54,45,.24))}
 .pv-meter{
   position:absolute;left:6vw;bottom:8svh;z-index:5;display:flex;align-items:flex-end;gap:1.1rem;
 }
@@ -375,6 +376,12 @@ footer{
   padding:2.2rem 6vw 2.6rem;font-size:.66rem;color:var(--ink-faint);letter-spacing:.14em;
 }
 footer .f-logo{font-family:'Italiana',serif;font-size:1.1rem;letter-spacing:.2em;color:var(--paper-dim)}
+
+/* ============ BEAT FLASH ============ */
+#beatFlash{
+  position:fixed;inset:0;z-index:95;pointer-events:none;
+  background:var(--brass);opacity:0;mix-blend-mode:soft-light;
+}
 
 /* ============ reveal helper ============ */
 [data-reveal]{opacity:0;transform:translateY(34px)}
@@ -561,6 +568,7 @@ html.reduced .pv-state .st.dried{opacity:1}
   <div class="nav-now" id="navNow">00 — INTRO</div>
 </nav>
 <div id="cursor"><span class="dot"></span></div>
+<div id="beatFlash" aria-hidden="true"></div>
 
 <main>
 
@@ -1180,10 +1188,10 @@ gsap.to('#progressBar',{
 /* hero intro (plays after loader) */
 gsap.set('[data-hero-row]',{yPercent:110});
 gsap.set('[data-hero-fade]',{opacity:0,y:20});
-gsap.set('.hero-bouquet',{opacity:0,scale:.94,transformOrigin:'50% 80%'});
+gsap.set('.hero-bouquet',{opacity:0,scale:.88,transformOrigin:'50% 80%'});
 function heroIn(){
   var tl = gsap.timeline({defaults:{ease:'power3.out'}});
-  tl.to('.hero-bouquet',{opacity:window.innerWidth<=640?.6:.9,scale:1,duration:1.6,ease:'power2.out'},0)
+  tl.to('.hero-bouquet',{opacity:window.innerWidth<=640?.85:.98,scale:1,duration:1.6,ease:'power2.out'},0)
     .to('[data-hero-row]',{yPercent:0,duration:1.15,stagger:.14},.15)
     .to('[data-hero-fade]',{opacity:1,y:0,duration:.9,stagger:.12},.75);
 }
@@ -1197,7 +1205,7 @@ gsap.to('.hero-bouquet',{
   scrollTrigger:{trigger:'#intro',start:'top top',end:'bottom top',scrub:.4}
 });
 /* gentle bouquet sway */
-gsap.to('.hero-bouquet',{rotate:1.4,transformOrigin:'50% 88%',duration:5.5,yoyo:true,repeat:-1,ease:'sine.inOut'});
+gsap.to('.hero-bouquet',{rotate:1.9,transformOrigin:'50% 88%',duration:5.5,yoyo:true,repeat:-1,ease:'sine.inOut'});
 
 /* ---------- 01 ANATOMY ---------- */
 var mm = gsap.matchMedia();
@@ -1210,13 +1218,17 @@ function buildAnatomy(cfg){
     defaults:{ease:'none'}
   });
   var k = cfg.k;
-  // explode
+  // explode — with an overshoot "pop" so each element punches out before settling
   tl.to('.anb-stems',{opacity:0,duration:.1},.04)
     .to('.anb-wrap',{opacity:0,y:40,duration:.12},.04)
-    .to('.anb-rose',   {x:0,       y:-100*k, rotation:0,  duration:.3},.08)
-    .to('.anb-gyps',   {x:-175*k,  y:-55*k,  rotation:-10,duration:.3},.08)
-    .to('.anb-euca',   {x:175*k,   y:40*k,   rotation:12, duration:.3},.08)
-    .to('.anb-statice',{x:-140*k,  y:110*k,  rotation:-8, duration:.3},.08);
+    .to('.anb-rose',   {x:0,       y:-100*k, rotation:0,  scale:1.24,duration:.17},.08)
+    .to('.anb-rose',   {scale:1,duration:.13},.25)
+    .to('.anb-gyps',   {x:-175*k,  y:-55*k,  rotation:-10,scale:1.2, duration:.17},.1)
+    .to('.anb-gyps',   {scale:1,duration:.13},.27)
+    .to('.anb-euca',   {x:175*k,   y:40*k,   rotation:12, scale:1.2, duration:.17},.1)
+    .to('.anb-euca',   {scale:1,duration:.13},.27)
+    .to('.anb-statice',{x:-140*k,  y:110*k,  rotation:-8, scale:1.2, duration:.17},.12)
+    .to('.anb-statice',{scale:1,duration:.13},.29);
 
   var labels = ['.al-rose','.al-gyps','.al-euca','.al-statice'];
   if(cfg.sequential){
@@ -1238,8 +1250,8 @@ function buildAnatomy(cfg){
   tl.to({},{duration:.01}, cfg.sequential ? 1.04 : .99);
   return tl;
 }
-mm.add('(min-width: 768px)', function(){ buildAnatomy({k:1.5, sequential:false}); });
-mm.add('(max-width: 767px)', function(){ buildAnatomy({k:.85, sequential:true}); });
+mm.add('(min-width: 768px)', function(){ buildAnatomy({k:1.85, sequential:false}); });
+mm.add('(max-width: 767px)', function(){ buildAnatomy({k:1.05, sequential:true}); });
 
 /* ---------- INTERLUDE ---------- */
 document.querySelectorAll('#interlude .line').forEach(function(line){
@@ -1268,6 +1280,7 @@ document.querySelectorAll('#interlude .line').forEach(function(line){
     },
     defaults:{ease:'none'}
   });
+  gsap.set('.pv-rose-wrap',{scale:1.12,transformOrigin:'50% 55%'});
   tl.to(sec, Object.assign({duration:.8},DRIED), .06)
     .to(proxy,{m:0,duration:.8,onUpdate:function(){
         var v = Math.round(proxy.m);
@@ -1277,7 +1290,9 @@ document.querySelectorAll('#interlude .line').forEach(function(line){
       }},.06)
     .to('#pvStFresh',{opacity:.22,duration:.5},.15)
     .to('#pvStDried',{opacity:1,duration:.5},.35)
-    .to('.pv-rose-wrap',{scale:.93,transformOrigin:'50% 50%',duration:.8},.06)
+    .to('.pv-rose-wrap',{scale:.8,rotation:-6,transformOrigin:'50% 55%',duration:.8},.06)
+    .to('.pv-flower',{opacity:.7,duration:.16},.72)
+    .to('.pv-flower',{opacity:1,duration:.12},.88)
     .to({},{duration:.14}); // hold at the end
 })();
 
@@ -1302,6 +1317,21 @@ document.querySelectorAll('[data-reveal]').forEach(function(el){
     scrollTrigger:{trigger:el,start:'top 86%',once:true}
   });
 });
+
+/* ---------- beat flash: quick brass pulse when a bg-color section arrives ---------- */
+(function(){
+  var flash = document.getElementById('beatFlash');
+  if(!flash) return;
+  ['#interlude','#breeze','#preservation','#spec','#features','#reviews','#preorder'].forEach(function(sel){
+    var el = document.querySelector(sel);
+    if(!el) return;
+    ScrollTrigger.create({
+      trigger: el, start:'top 60%',
+      onEnter:function(){ gsap.fromTo(flash,{opacity:.24},{opacity:0,duration:.7,ease:'power2.out'}); },
+      onEnterBack:function(){ gsap.fromTo(flash,{opacity:.18},{opacity:0,duration:.7,ease:'power2.out'}); }
+    });
+  });
+})();
 
 /* refresh after fonts settle */
 if(document.fonts && document.fonts.ready){
