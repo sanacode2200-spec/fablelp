@@ -7,6 +7,7 @@ Fable 5 と Sonnet 5 に同一指示・同一参考サイトでLPを作らせ、
 | `fable_v1-toka01/` | Fable 5 | TŌKA 01（架空ドライフラワーブランド） | 比較のお手本側。演出の質が高い | 2026-07-07 |
 | `sonnet_v1-toka01/` | Sonnet 5（スキルなし） | TŌKA 01（同ブリーフ） | 比較対象。Fable版との差分を分析してスキル化した元ネタ | 2026-07-07 |
 | `sonnet_v2-nagi_skilltest/` | Sonnet 5（`fable5-scroll-lp`スキル使用） | 凪 -NAGI-（架空キャンドルブランド） | 移植性テスト。Fable版を知らない状態でスキルだけ渡し、別テーマで再現できるか検証 → 合格 | 2026-07-07 |
+| `yohaku_v1-perfume/` | Codex（`fable5-scroll-lp`スキル参照） | 余白 YŌHAKU（架空香水ブランド） | 香りの8時間変化を1スカラー駆動で見せる、物語性・SNS映え重視の追加テーマ | 2026-07-09 |
 
 蒸留結果（判断基準・数値パラメータ・アンチパターン等）は `~/.claude/skills/fable5-scroll-lp/` に保存済み。
 以後の新規LP制作はそちらのスキルを使う。
